@@ -47,9 +47,11 @@
             register(user) {
                 this.$http.post('participants', user)
                     .then(response => {
-
+                        alert("Udało się!");
                     })
-                    .catch(response => {});
+                    .catch(response => {
+                        alert("Nie dusało się! Status; " + response.status)
+                    });
             },
             logout() {
                 this.authenticatedUsername = '';
