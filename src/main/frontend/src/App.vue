@@ -11,7 +11,18 @@
       <meetings-page :username="authenticatedUsername"></meetings-page>
     </div>
     <div v-else>
-      <login-form @login="login($event)"></login-form>
+      <!-- 2 przyciski na górze: Zaloguj się | Zarejestruj się -->
+      <button :class="isRegistering ? 'button-outline' : ''"
+                  @click="isRegistering = false">Zaloguj się</button>
+      <button :class="!isRegistering ? 'button-outline' : ''"
+                  @click="isRegistering = true">Zarejestruj się
+      </button>
+      <!-- Przycisk na dole który reaguje w inny sposób w zależności od wybranego przycisku na górze -->
+      <login-form @login="login($event)"
+                  v-if = "!isRegistering"> </login-form>
+      <login-form @login="register($event)"
+                  :button-label="'Zarejestruj się'"
+                  v-else > </login-form> <!-- Komentarze -->
     </div>
   </div>
 </template>
@@ -25,12 +36,16 @@
         components: {LoginForm, MeetingsPage},
         data() {
             return {
-                authenticatedUsername: ""
+                authenticatedUsername: "",
+                isRegistering: false
             };
         },
         methods: {
             login(user) {
                 this.authenticatedUsername = user.login;
+            },
+            register(user) {
+                alert(user.login);
             },
             logout() {
                 this.authenticatedUsername = '';
