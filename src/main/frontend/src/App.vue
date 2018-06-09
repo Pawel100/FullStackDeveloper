@@ -45,7 +45,11 @@
                 this.authenticatedUsername = user.login;
             },
             register(user) {
-                alert(user.login);
+                this.$http.post('participants', user)
+                    .then(response => {
+
+                    })
+                    .catch(response => {});
             },
             logout() {
                 this.authenticatedUsername = '';
